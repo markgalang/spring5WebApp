@@ -2,8 +2,10 @@ package learning.markgalang.spring5WebApp.bootstrap;
 
 import learning.markgalang.spring5WebApp.domain.Author;
 import learning.markgalang.spring5WebApp.domain.Book;
+import learning.markgalang.spring5WebApp.domain.Publisher;
 import learning.markgalang.spring5WebApp.repositories.AuthorRepository;
 import learning.markgalang.spring5WebApp.repositories.BookRepository;
+import learning.markgalang.spring5WebApp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,14 +14,25 @@ public class BootStrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        Publisher publisher = new Publisher();
+
+        publisher.setName("qqqq");
+        publisher.setCity("asdasd");
+
+        publisherRepository.save(publisher);
+        System.out.println("Publisher Count: " + publisherRepository.count());
+
         Author authorName = new Author("asa", "sdsd" );
         Book bookData = new Book("test", "sdsadas");
         authorName.getBooks().add(bookData);
